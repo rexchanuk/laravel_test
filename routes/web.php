@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,5 +13,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
+});
+
+
+Route::namespace('Auth')->group(function () {
+  /*Route::get('/login','LoginController@show_login_form')->name('login');
+  Route::post('/login','LoginController@process_login')->name('login');
+  Route::get('/register','LoginController@show_signup_form')->name('register');
+  Route::post('/register','LoginController@process_signup');
+  Route::post('/logout','LoginController@logout')->name('logout');*/
+  
+  Route::get('/home', 'WeatherController@home')->name("home");
 });

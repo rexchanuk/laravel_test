@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\API\WeatherController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,9 +14,28 @@ use App\Http\Controllers\API\WeatherController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::get('weather', [WeatherController::class, 'weather']);
-Route::get('weather/{locale}', [WeatherController::class, 'weather']);
-
+/*
+Route::namespace('API')->group(function () {
+	Route::get('weather', 'WeatherController@weather');
+	Route::get('weather/{locale}', 'WeatherController@weather');
+});
+*/
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'auth'
+], function ($router) {
+    Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/register', [AuthController::class, 'register']);
+    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::post('/refresh', [AuthController::class, 'refresh']);
+    Route::get('/user-profile', [AuthController::class, 'userProfile']);
+});
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'API'
+], function ($router) {
+    Route::get('/weather/{locale}', 'WeatherController@weather');
+});
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
