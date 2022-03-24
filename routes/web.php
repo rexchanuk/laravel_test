@@ -11,11 +11,11 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+/*
 Route::get('/', function () {
     return redirect()->route('login');
 });
-
+*/
 
 Route::namespace('Auth')->group(function () {
   /*Route::get('/login','LoginController@show_login_form')->name('login');
@@ -24,5 +24,5 @@ Route::namespace('Auth')->group(function () {
   Route::post('/register','LoginController@process_signup');
   Route::post('/logout','LoginController@logout')->name('logout');*/
   
-  Route::get('/home', 'WeatherController@home')->name("home");
+  //Route::get('/home', 'WeatherController@home')->name("home");
 });

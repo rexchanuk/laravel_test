@@ -29,12 +29,8 @@ Route::group([
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/refresh', [AuthController::class, 'refresh']);
     Route::get('/user-profile', [AuthController::class, 'userProfile']);
-});
-Route::group([
-    'middleware' => 'api',
-    'prefix' => 'API'
-], function ($router) {
-    Route::get('/weather/{locale}', 'WeatherController@weather');
+	
+	Route::get('/weather/{locale}', 'API\WeatherController@weather');
 });
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
